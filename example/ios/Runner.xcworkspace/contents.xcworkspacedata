@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
+   <Group
+      location = "absolute:/Users/muccy/Developer/Timeware/flutter_login_facebook/ios/Classes"
+      name = "Classes">
+      <FileRef
+         location = "group:FlutterLoginFacebookPlugin.m">
+      </FileRef>
+      <FileRef
+         location = "group:FlutterLoginFacebookPlugin.h">
+      </FileRef>
+      <FileRef
+         location = "group:SwiftFlutterLoginFacebookPlugin.swift">
+      </FileRef>
+   </Group>
    <FileRef
       location = "group:Runner.xcodeproj">
    </FileRef>
