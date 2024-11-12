@@ -311,7 +311,7 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
         // and there is not way no know about this.
         // So, as a temporary workaround, we will make the same checks as FB SDK does.
         // https://github.com/facebook/facebook-ios-sdk/blob/7aa39da29eca817495cecf1f9fa831f023208c63/FBSDKLoginKit/FBSDKLoginKit/LoginManager.swift#L570
-        var isLimitedLogin = _DomainHandler.sharedInstance().isDomainHandlingEnabled() && !Settings.shared.isAdvertiserTrackingEnabled
+        var isLimitedLogin = false // TODO: restore it -> _DomainHandler.sharedInstance().isDomainHandlingEnabled() && !Settings.shared.isAdvertiserTrackingEnabled
         
         _loginManager.logIn(configuration: config) { res in
             // TODO: add `granted` and `declined` information
