@@ -3,6 +3,7 @@ package ru.innim.flutter_login_facebook;
 import androidx.annotation.NonNull;
 
 import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
@@ -68,6 +69,10 @@ public class FlutterLoginFacebookPlugin implements FlutterPlugin, ActivityAware 
     }
 
     private void _setActivity(ActivityPluginBinding activityPluginBinding) {
+        // Apps without com.facebook.sdk.ApplicationId never initialize the SDK,
+        // and LoginManager.getInstance() throws when it isn't initialized. Leaving
+        // _activityPluginBinding null also makes _resetActivity a no-op.
+        if (!FacebookSdk.isInitialized()) return;
         _activityPluginBinding = activityPluginBinding;
         final LoginManager loginManager = LoginManager.getInstance();
         loginManager.registerCallback(_callbackManager, _loginCallback);
