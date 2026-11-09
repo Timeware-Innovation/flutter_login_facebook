@@ -5,4 +5,5 @@ public class ErrorCode {
     public static final String INTERRUPTED = "INTERRUPTED";
     public static final String FAILED = "FAILED";
     public static final String INVALID_ARGS = "INVALID_ARGS";
+    public static final String SDK_NOT_INITIALIZED = "SDK_NOT_INITIALIZED";
 }

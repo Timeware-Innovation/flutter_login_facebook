@@ -49,6 +49,10 @@ public class MethodCallHandler implements MethodChannel.MethodCallHandler {
 
     @Override
     public void onMethodCall(MethodCall call, Result result) {
+        if (!FacebookSdk.isInitialized()) {
+            onMethodCallWithoutSdk(call, result);
+            return;
+        }
         if (_activity != null) {
             switch (call.method) {
                 case _IS_READY_METHOD:
@@ -90,6 +94,34 @@ public class MethodCallHandler implements MethodChannel.MethodCallHandler {
                     result.notImplemented();
                     break;
             }
+        }
+    }
+
+    // Without an initialized SDK every FacebookSdk-backed call throws, so answer
+    // here instead: "nothing to report" for state reads and logout, an error for
+    // the calls that need Facebook.
+    private void onMethodCallWithoutSdk(MethodCall call, Result result) {
+        switch (call.method) {
+            case _IS_READY_METHOD:
+                isReady(result);
+                break;
+            case _GET_SDK_VERSION:
+                getSdkVersion(result);
+                break;
+            case _LOGOUT_METHOD:
+            case _GET_ACCESS_TOKEN:
+            case _GET_USER_PROFILE:
+                result.success(null);
+                break;
+            case _LOGIN_METHOD:
+            case _EXPRESS_LOGIN_METHOD:
+            case _GET_USER_EMAIL:
+            case _GET_PROFILE_IMAGE_URL:
+                result.error(ErrorCode.SDK_NOT_INITIALIZED, "Facebook SDK is not initialized", null);
+                break;
+            default:
+                result.notImplemented();
+                break;
         }
     }
 
